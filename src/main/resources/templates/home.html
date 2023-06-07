@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>love 2 code home page</title>
+</head>
+<body>
+<h2>luv2 code company home page</h2>
+<hr>
+  <h4>welcome to love to code company home page</h4>
+
+<p>
+    User: <span sec:authentication="principal.username"></span>
+    <br>
+    <br>
+    Role(s): <span sec:authentication="principal.authorities"></span>
+
+</p>
+<!--Add a link to point to /leaders... this is for the managers-->
+<hr>
+<div sec:authorize="hasRole('MANAGER')">
+    <p>
+        <a th:href="@{/leaders}">
+            Leadership Meetings
+            (only for managers)
+        </a>
+    </p>
+</div>
+
+<div sec:authorize="hasRole('ADMIN')">
+<p>
+    <a th:href="@{/systems}">
+       IT systems Meeting
+        (only for admin peeps)
+    </a>
+</p>
+</div>
+
+
+<form action="#" th:action="@{/logout}" method="POST">
+ <input type="submit" value="logout"  />
+</form>
+</body>
+</html>
